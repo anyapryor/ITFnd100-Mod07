@@ -1,10 +1,11 @@
 # Pickling
-##Binary data and Pickling
+Binary data and Pickling
  Import allows you to access other files that were previously created. Binary format allows you to both obscure the data and to make it smaller so it may be easier to use. Pickling is called by importing first, as the commands to pickle data are not inherent in Python. By pickling we take data and transform the format to binary and create it as a reference object, so that it will persist in the file and format we create. Pickling uses either the dump or read commands, dump to put data into binary format and read to transform it back into a human readable format.
 
 Here is the lab for pickling:
-`
-# ------------------------------------------------- #
+
+```
+# ------------------------------------------------- Z
 # Title: Lab7-1
 # Description: A simple example of storing data in a binary file
 # ChangeLog: (Who, When, What)
@@ -35,11 +36,11 @@ lstCustomer= [stridvalue,strnamevalue]
 save_data_to_file(strFileName,lstCustomer)
 # TODO: Read the data from the file into a new list object and display the contents
 print(read_data_from_file(strFileName))
-`
+```
 The data put into the file using the pickle.load function keeps it the same as it originally was created, regardless of the input data gathered from the input block.
 I found this video interesting as it used a string variation for the load and dump functions, and it also created a class.
-`
-#from https://www.youtube.com/watch?v=XzkhtWYYojg
+
+```#from https://www.youtube.com/watch?v=XzkhtWYYojg
 
 import pickle
 #pickle.dump() #this works with a file type object
@@ -63,9 +64,9 @@ my_object.a_dictionary=None
 my_unpickled_object=pickle.loads(my_pickled_object)
 print(
     f"a_dictionary of unpickled object:\n{my_unpickled_object.a_dictionary}\n")
-`
+```
 I also found the example in the book interesting as it used a shelve function to act like a dictionary for the pickled object:
-`
+```
 # Pickle It
 # Demonstrates pickling and shelving data
 # from Python Programming for the Absolute Beginner by Michael Dawson, p.200
@@ -105,4 +106,5 @@ print("variety -", s["variety"])
 s.close()
 
 input("\n\nPress the enter key to exit.")
-`
+```
+This site has a good summary on pickling:  https://www.geeksforgeeks.org/understanding-python-pickling-example/
