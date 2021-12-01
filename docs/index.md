@@ -108,3 +108,142 @@ s.close()
 input("\n\nPress the enter key to exit.")
 ```
 This site has a good summary on pickling:  https://www.geeksforgeeks.org/understanding-python-pickling-example/
+
+#Try Except Error Handling
+Using the try except commands allows you to put in tests as a statement is running to determine if expected results are being found. You can also create your own error statements to assist with understanding those that are automatically created by Python. Here is the lab where we are testing the division by zero rule.
+```
+# Using try
+try:
+    quotient = 5/0
+    print(quotient)
+except:
+    print("There was an error! <<< Custom Message!\n")
+#
+# Now, without try
+quotient = 5/0
+print('never gets to this line’)
+```
+
+ We can also use the except block like a function by calling in the variable you are capturing. You will need to put in the class that the variable is, and then you can use  commands document and string. Document and string are called with double underscores around them like this: 
+ ```
+# ------------------------------------------------- #
+# Title: Listing 12
+# Description: A try-catch with better error messages
+# ChangeLog: (Who, When, What)
+# RRoot,1.1.2030,Created Script
+# Anya Pryor, 11/29/21, Added comments
+# ------------------------------------------------- #
+
+try:
+    quotient = 5/0
+    print(quotient)
+except Exception as e:
+    print("There was an error! << Custom Message")
+
+    print("Built-In Pythons error info: ")
+    print(e)
+    print(type(e)) #the class of the exception
+    print(e.__doc__) #references the documentation on the exception
+    print(e.__str__()) #references the subcategory in the documentation
+```
+There are subcategories of error messages within the class of exceptions, such as file not found. If you chain together exception blocks the order in which you put them will determine your results. For this reason, the most general exception should be at the end as a final error check. You can use the generic catch in order to see the class of the error using type and then you can create a new except block to catch that class of exception.
+
+The documentation in Python has a list of base classes, that is further divided into exception classes, which are in a hierarchy of parent and class exceptions. Here is a link to general info on the exceptions: https://docs.python.org/3/library/exceptions.html#bltin-exceptions.
+
+You can customize the error messages that are returned by simply using the exception command, it doesn’t need to be within the try except block. Your custom messages can be embedded within a class you create, and they can use the string command as well.
+Python also allows for conditional logic to be embedded in the try except blocks, allowing you to refine the type of testing you are doing beyond the order of exceptions that you test for. Using the else-if syntax will allow for this, as in listing 15:
+```
+# ------------------------------------------------- #
+# Title: Listing 15
+# Description: A try-catch with manually raised errors
+#               using custom error classes
+# ChangeLog: (Who, When, What)
+# RRoot,1.1.2030,Created Script
+# ------------------------------------------------- #
+
+class CustomError(Exception):
+    """  Some custom error info in the DocString  """
+    def __str__(self):
+        return 'Some custom error message'
+
+class FileNotTXTError(Exception):
+    """  File extension must end with txt to indicate it is a text file  """
+    def __str__(self):
+        return 'File extension not txt'
+
+try:
+    new_file_name = input("Enter the name of the file you want to make: ")
+    if new_file_name.isnumeric():
+        raise Exception('Do not use numbers for the file\'s name')
+    elif new_file_name.endswith('txt') == False:
+        raise FileNotTXTError()
+    else:
+        raise CustomError()
+
+except FileNotTXTError as e:
+    print("There was a non-specific error!")
+    print("Built-In Python error info: ")
+    print(e, e.__doc__, type(e), sep='\n')
+except Exception as e:
+    print("There was a non-specific error!")
+    print("Built-In Python error info: ")
+    print(e, e.__doc__, type(e), sep='\n')
+
+```
+
+
+Here this is similar to the multiple error handling in Dawson (p.206):
+```
+# Handle It
+# Demonstrates handling exceptions
+# From Python for Absolute Beginners by Michael Dawson p.206
+
+# try/except
+try:
+    num = float(input("Enter a number: "))
+except:
+    print("Something went wrong!")
+
+# specifying exception type
+try:
+    num = float(input("\nEnter a number: "))
+except ValueError:
+    print("That was not a number!")
+
+# handle multiple exception types
+print()
+for value in (None, "Hi!"):
+    try:
+        print("Attempting to convert", value, "-->", end=" ")
+        print(float(value))
+    except (TypeError, ValueError):
+        print("Something went wrong!")
+
+print()
+for value in (None, "Hi!"):
+    try:
+        print("Attempting to convert", value, "-->", end=" ")
+        print(float(value))
+    except TypeError:
+        print("I can only convert a string or a number!")
+    except ValueError:
+        print("I can only convert a string of digits!")
+
+# get an exception's argument
+try:
+    num = float(input("\nEnter a number: "))
+except ValueError as e:
+    print("That was not a number! Or as Python would say...")
+    print(e)
+
+# try/except/else
+try:
+    num = float(input("\nEnter a number: "))
+except ValueError:
+    print("That was not a number!")
+else:
+    print("You entered the number", num)
+
+input("\n\nPress the enter key to exit.”)
+```
+The code above shows us the different types of error messages you can create from the same input.
